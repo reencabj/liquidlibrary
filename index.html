@@ -26,7 +26,7 @@
       <div class="grid place-items-center">
         <img src="img/logo.png" alt="Logo" class="w-20 h-20 object-contain" />
       </div>
-    
+
       <div>
         <h1 class="text-3xl md:text-4xl font-bold">Calculadora de Ingredientes</h1>
         <p class="text-neutral-300 text-sm">Liquid Library ®</p>
@@ -88,13 +88,6 @@
   const STORAGE_KEY = 'yy_calc_batch_v1';
   const canonical = name => NAME_MAP[norm(name)] || name;
   const getRecipe = name => RECIPES[canonical(name)];
-  // Usa tu NAME_MAP/canonical/getRecipe ya existentes
-  const getPrice = (name) => {
-    const rec = getRecipe(name) || {};
-    const val = Number(rec.price);
-    return Number.isFinite(val) ? val : 0;
-  };
-
   function esMateriaPrima(nombre){ const rec=getRecipe(nombre); return !rec || !(rec.ingredients&&rec.ingredients.length); }
   function addQty(store, name, qty){ const canon=canonical(name); const key=norm(canon); if(!store[key]) store[key]={qty:0,label:canon}; store[key].qty+=qty; }
   function expandirConArbol(producto,cantidad,mp,inter,indent=0){
@@ -114,43 +107,10 @@
   function renderSelect(options){ document.getElementById('prodSelect').innerHTML = options.map(n=>`<option value="${n}">${n}</option>`).join(''); }
   function renderAllOptions(){ return Object.keys(RECIPES).sort(); }
   function filterOptions(term){ const t=norm(term); return renderAllOptions().filter(n=>norm(n).includes(t)); }
-  function renderMap(divId, store, withCosts = false) {
-    const el = document.getElementById(divId);
-    const entries = Object.values(store).sort((a, b) => a.label.localeCompare(b.label));
+  function renderMap(divId,store){ const el=document.getElementById(divId); const entries=Object.values(store).sort((a,b)=>a.label.localeCompare(b.label));
+    if(!entries.length){ el.innerHTML='<p class="text-neutral-400">—</p>'; return; }
+    el.innerHTML = entries.map(e=>`<div class="flex justify-between py-1 border-b border-neutral-800"><span>${e.label}</span><span class="tabular-nums">${e.qty.toFixed(2)}</span></div>`).join('');
   
-    if (!entries.length) {
-      el.innerHTML = '<p class="text-neutral-400">—</p>';
-      return;
-    }
-  
-    let total = 0;
-    el.innerHTML = entries.map(e => {
-      const qty = Number(e.qty || 0);
-      const price = withCosts ? getPrice(e.label) : 0;
-      const cost = price * qty;
-      if (withCosts) total += cost;
-  
-      return `
-        <div class="flex justify-between py-1 border-b border-neutral-800">
-          <span>${e.label}</span>
-          <span class="tabular-nums">
-            ${qty.toFixed(2)}${withCosts && price ? ` • $${cost.toFixed(2)}` : ""}
-          </span>
-        </div>
-      `;
-    }).join('');
-  
-    if (withCosts && total > 0) {
-      el.innerHTML += `
-        <div class="flex justify-between py-2 mt-2 border-t border-neutral-700 font-semibold text-yy-accent">
-          <span>Total</span>
-          <span>$${total.toFixed(2)}</span>
-        </div>
-      `;
-    }
-  }
-
-
   const batch = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
   function saveBatch(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(batch)); }
   function renderBatch(){
@@ -173,12 +133,7 @@
     const mp={}, inter={}; let treeLines=[];
     for(const item of batch){ if(showTree) treeLines=treeLines.concat(expandirConArbol(item.producto, Number(item.cantidad||0), mp, inter, 0));
                               else expandir(item.producto, Number(item.cantidad||0), mp, inter); }
-    // Materia prima con costos
-    renderMap('mpList', mp, true);
-    
-    // Intermedios sin costos (o true si querés también)
-    renderMap('interList', inter, false);
-
+    renderMap('mpList', mp); renderMap('interList', inter);
     if(showTree){ document.getElementById('treeView').textContent=treeLines.join('\n'); document.getElementById('treePanel').classList.remove('hidden'); }
     return { mp, inter };
   }
@@ -206,7 +161,7 @@
         const url = new URL('./recipes.json', document.baseURI).toString();
         const r = await fetch(url, { cache: 'no-store' });
         if (!r.ok) throw new Error('HTTP ' + r.status);
-  
+
         RECIPES = await r.json();
         NAME_MAP = Object.keys(RECIPES).reduce((acc,k)=> (acc[k.trim().toLowerCase()] = k, acc), {});
         renderSelect(Object.keys(RECIPES).sort());
