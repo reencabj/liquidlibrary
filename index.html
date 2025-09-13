@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Liquid Library</title>
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -20,34 +22,41 @@
     .glass { background: linear-gradient(180deg, rgba(20,20,25,.8), rgba(12,12,16,.8)); backdrop-filter: blur(6px); }
   </style>
 </head>
+
 <body class="bg-neutral-950 text-neutral-100 min-h-screen">
   <div class="max-w-6xl mx-auto p-6">
+    <!-- Header centrado -->
     <header class="mb-6 flex flex-col items-center text-center gap-3">
       <div class="grid place-items-center">
         <img src="img/logo.png" alt="Logo" class="w-20 h-20 object-contain" />
       </div>
-
       <div>
         <h1 class="text-3xl md:text-4xl font-bold">Calculadora de Ingredientes</h1>
         <p class="text-neutral-300 text-sm">Liquid Library ®</p>
       </div>
     </header>
 
-
-
+    <!-- Buscador + Lote -->
     <section class="grid md:grid-cols-2 gap-4 mb-6">
       <div class="card rounded-2xl p-4 glass">
         <label class="block text-sm mb-2">Buscar y agregar producto</label>
         <div class="mb-2">
-          <input id="searchInput" placeholder="Buscar producto..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-yy-accent" />
+          <input id="searchInput" placeholder="Buscar producto..."
+                 class="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2
+                        focus:outline-none focus:ring-2 focus:ring-yy-accent" />
           <p class="text-xs text-neutral-400 mt-1">Escribí para filtrar. Enter agrega el seleccionado.</p>
         </div>
         <div class="flex gap-2">
           <select id="prodSelect" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2"></select>
-          <input id="qtyInput" type="number" min="1" value="1" class="w-28 bg-neutral-900 border border-neutral-800 rounded-xl p-2" />
-          <button id="addBtn" class="px-4 py-2 rounded-xl bg-yy-accent/90 hover:bg-yy-accent text-neutral-900 font-semibold shadow-yy">Agregar</button>
+          <input id="qtyInput" type="number" min="1" value="1"
+                 class="w-28 bg-neutral-900 border border-neutral-800 rounded-xl p-2" />
+          <button id="addBtn"
+                  class="px-4 py-2 rounded-xl bg-yy-accent/90 hover:bg-yy-accent text-neutral-900 font-semibold shadow-yy">
+            Agregar
+          </button>
         </div>
       </div>
+
       <div class="card rounded-2xl p-4 glass">
         <h2 class="font-semibold mb-2">Lote actual</h2>
         <div id="batchList" class="space-y-2 text-sm"></div>
@@ -58,12 +67,20 @@
       </div>
     </section>
 
+    <!-- Acciones -->
     <div class="flex flex-wrap gap-3 mb-4">
-      <button id="calcBtn" class="px-4 py-2 rounded-xl bg-yy-accent/90 hover:bg-yy-accent text-neutral-900 font-semibold">Calcular materia prima</button>
-      <button id="toggleTreeBtn" class="px-4 py-2 rounded-xl bg-neutral-900 border border-neutral-800">Ver árbol de expansión</button>
-      <button id="exportCsvBtn" class="px-4 py-2 rounded-xl bg-neutral-900 border border-neutral-800">Exportar CSV</button>
+      <button id="calcBtn" class="px-4 py-2 rounded-xl bg-yy-accent/90 hover:bg-yy-accent text-neutral-900 font-semibold">
+        Calcular materia prima
+      </button>
+      <button id="toggleTreeBtn" class="px-4 py-2 rounded-xl bg-neutral-900 border border-neutral-800">
+        Ver árbol de expansión
+      </button>
+      <button id="exportCsvBtn" class="px-4 py-2 rounded-xl bg-neutral-900 border border-neutral-800">
+        Exportar CSV
+      </button>
     </div>
 
+    <!-- Resultados -->
     <section id="results" class="grid md:grid-cols-2 gap-4">
       <div class="card rounded-2xl p-4 glass">
         <h3 class="font-semibold mb-2">Materia prima requerida</h3>
@@ -75,109 +92,233 @@
       </div>
     </section>
 
+    <!-- Árbol -->
     <section id="treePanel" class="mt-6 hidden card rounded-2xl p-4 glass">
       <h3 class="font-semibold mb-2">Árbol de expansión</h3>
       <div id="treeView" class="text-sm whitespace-pre leading-6 font-mono"></div>
     </section>
   </div>
 
+  <!-- App -->
   <script>
-  // ---------- helpers de UI y cálculo (igual que antes) ----------
-  const norm = s => (s||"").trim().toLowerCase();
-  let RECIPES = {}; let NAME_MAP = {};
-  const STORAGE_KEY = 'yy_calc_batch_v1';
-  const canonical = name => NAME_MAP[norm(name)] || name;
-  const getRecipe = name => RECIPES[canonical(name)];
-  function esMateriaPrima(nombre){ const rec=getRecipe(nombre); return !rec || !(rec.ingredients&&rec.ingredients.length); }
-  function addQty(store, name, qty){ const canon=canonical(name); const key=norm(canon); if(!store[key]) store[key]={qty:0,label:canon}; store[key].qty+=qty; }
-  function expandirConArbol(producto,cantidad,mp,inter,indent=0){
-    const rec=getRecipe(producto); const pad=' '.repeat(indent); let lines=[]; const label=canonical(producto);
-    if(!rec||!rec.ingredients||!rec.ingredients.length){ addQty(mp,producto,cantidad); lines.push(`${pad}• ${label}  (MP += ${cantidad.toFixed(2)})`); return lines; }
-    const rend=Number(rec.yield_qty||1); lines.push(`${pad}• ${label}  (rend=${rend}, pedido=${cantidad})`);
-    for(const ing of rec.ingredients){ const req=cantidad*(Number(ing.qty||1)/rend); const ingLabel=canonical(ing.name);
-      if(esMateriaPrima(ing.name)){ addQty(mp,ing.name,req); lines.push(`${pad}  └─ ${ingLabel}  (MP += ${req.toFixed(2)})`); }
-      else { addQty(inter,ing.name,req); lines.push(`${pad}  └─ ${ingLabel}  (intermedio += ${req.toFixed(2)})`); lines=lines.concat(expandirConArbol(ing.name,req,mp,inter,indent+4)); } }
-    return lines;
-  }
-  function expandir(producto,cantidad,mp,inter){
-    const rec=getRecipe(producto); if(!rec||!rec.ingredients||!rec.ingredients.length){ addQty(mp,producto,cantidad); return; }
-    const rend=Number(rec.yield_qty||1);
-    for(const ing of rec.ingredients){ const req=cantidad*(Number(ing.qty||1)/rend); if(esMateriaPrima(ing.name)) addQty(mp,ing.name,req); else { addQty(inter,ing.name,req); expandir(ing.name,req,mp,inter); } }
-  }
-  function renderSelect(options){ document.getElementById('prodSelect').innerHTML = options.map(n=>`<option value="${n}">${n}</option>`).join(''); }
-  function renderAllOptions(){ return Object.keys(RECIPES).sort(); }
-  function filterOptions(term){ const t=norm(term); return renderAllOptions().filter(n=>norm(n).includes(t)); }
-  function renderMap(divId, store) {
-    const el = document.getElementById(divId);
-    const entries = Object.values(store).sort((a,b)=>a.label.localeCompare(b.label));
-  
-    if (!entries.length) {
-      el.innerHTML = '<p class="text-neutral-400">—</p>';
-      return;
+    // ------------------ Estado y utilidades ------------------
+    const norm = s => (s || "").trim().toLowerCase();
+    let RECIPES = {};
+    let NAME_MAP = {};
+    const STORAGE_KEY = 'yy_calc_batch_v1';
+
+    const canonical = name => NAME_MAP[norm(name)] || name;
+    const getRecipe  = name => RECIPES[canonical(name)];
+
+    function isMateriaPrima(name) {
+      const rec = getRecipe(name);
+      return !rec || !rec.ingredients || rec.ingredients.length === 0;
     }
-  
-    el.innerHTML = entries.map(e => `
-      <div class="flex justify-between py-1 border-b border-neutral-800">
-        <span>${e.label}</span>
-        <span class="tabular-nums">${e.qty.toFixed(2)}</span>
-      </div>
-    `).join('');
-  }
 
-  
-  const batch = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
-  function saveBatch(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(batch)); }
-  function renderBatch(){
-    const c=document.getElementById('batchList');
-    if(batch.length===0){ c.innerHTML='<p class="text-neutral-400">Sin items.</p>'; return; }
-    c.innerHTML = batch.map((b,i)=>`
-      <div class="flex items-center justify-between bg-neutral-900 rounded-xl p-2 border border-neutral-800">
-        <div><div class="font-medium">${b.producto}</div><div class="text-neutral-400">Cantidad: ${b.cantidad}</div></div>
-        <div class="flex gap-2 items-center">
-          <button data-i="${i}" class="decBtn px-2 rounded-lg bg-neutral-800 border border-neutral-700">-</button>
-          <button data-i="${i}" class="incBtn px-2 rounded-lg bg-neutral-800 border border-neutral-700">+</button>
-          <button data-i="${i}" class="rmBtn text-red-400 hover:text-red-300">Quitar</button>
+    function addQty(store, name, qty) {
+      const canon = canonical(name);
+      const key = norm(canon);
+      if (!store[key]) store[key] = { label: canon, qty: 0 };
+      store[key].qty += Number(qty || 0);
+    }
+
+    // ------------------ Expansión con anti-ciclos ------------------
+    const MAX_DEPTH = 100;
+
+    function expandir(producto, cantidad, mp, inter, path = new Set(), depth = 0) {
+      if (depth > MAX_DEPTH) {
+        console.warn('[expandir] corte por profundidad:', producto);
+        addQty(mp, producto, cantidad);
+        return;
+      }
+
+      const canon = canonical(producto);
+      if (path.has(canon)) {
+        console.warn('[expandir] CICLO:', [...path, canon].join(' -> '));
+        addQty(mp, producto, cantidad); // tratamos como MP para no romper
+        return;
+      }
+
+      const rec = getRecipe(producto);
+      if (!rec || !rec.ingredients || rec.ingredients.length === 0) {
+        addQty(mp, producto, cantidad);
+        return;
+      }
+
+      const rend = Number(rec.yield_qty || 1);
+      const nextPath = new Set(path); nextPath.add(canon);
+
+      for (const ing of rec.ingredients) {
+        const req = Number(cantidad) * (Number(ing.qty || 1) / rend);
+        if (isMateriaPrima(ing.name)) {
+          addQty(mp, ing.name, req);
+        } else {
+          addQty(inter, ing.name, req);
+          expandir(ing.name, req, mp, inter, nextPath, depth + 1);
+        }
+      }
+    }
+
+    function expandirConArbol(producto, cantidad, mp, inter, indent = 0, path = new Set(), depth = 0) {
+      const pad = ' '.repeat(indent);
+      const lines = [];
+      const canon = canonical(producto);
+
+      if (depth > MAX_DEPTH) {
+        lines.push(`${pad}• ${canon}  [corte profundidad] (MP += ${cantidad.toFixed(2)})`);
+        addQty(mp, producto, cantidad);
+        return lines;
+      }
+      if (path.has(canon)) {
+        lines.push(`${pad}• ${canon}  [CICLO] (MP += ${cantidad.toFixed(2)})`);
+        addQty(mp, producto, cantidad);
+        return lines;
+      }
+
+      const rec = getRecipe(producto);
+      if (!rec || !rec.ingredients || rec.ingredients.length === 0) {
+        addQty(mp, producto, cantidad);
+        lines.push(`${pad}• ${canon}  (MP += ${cantidad.toFixed(2)})`);
+        return lines;
+      }
+
+      const rend = Number(rec.yield_qty || 1);
+      lines.push(`${pad}• ${canon}  (rend=${rend}, pedido=${cantidad})`);
+      const nextPath = new Set(path); nextPath.add(canon);
+
+      for (const ing of rec.ingredients) {
+        const req = Number(cantidad) * (Number(ing.qty || 1) / rend);
+        const ingCanon = canonical(ing.name);
+        if (isMateriaPrima(ing.name)) {
+          addQty(mp, ing.name, req);
+          lines.push(`${pad}  └─ ${ingCanon}  (MP += ${req.toFixed(2)})`);
+        } else {
+          addQty(inter, ing.name, req);
+          lines.push(`${pad}  └─ ${ingCanon}  (intermedio += ${req.toFixed(2)})`);
+          lines.push(...expandirConArbol(ing.name, req, mp, inter, indent + 4, nextPath, depth + 1));
+        }
+      }
+      return lines;
+    }
+
+    // ------------------ Render UI ------------------
+    function renderSelect(options) {
+      document.getElementById('prodSelect').innerHTML =
+        options.map(n => `<option value="${n}">${n}</option>`).join('');
+    }
+    function renderAllOptions() { return Object.keys(RECIPES).sort(); }
+    function filterOptions(term) {
+      const t = norm(term);
+      return renderAllOptions().filter(n => norm(n).includes(t));
+    }
+    function renderMap(divId, store) {
+      const el = document.getElementById(divId);
+      const entries = Object.values(store).sort((a, b) => a.label.localeCompare(b.label));
+      if (!entries.length) { el.innerHTML = '<p class="text-neutral-400">—</p>'; return; }
+      el.innerHTML = entries.map(e => `
+        <div class="flex justify-between py-1 border-b border-neutral-800">
+          <span>${e.label}</span>
+          <span class="tabular-nums">${e.qty.toFixed(2)}</span>
         </div>
-      </div>`).join('');
-    c.querySelectorAll('.rmBtn').forEach(btn=>btn.onclick=e=>{ const i=Number(e.target.dataset.i); batch.splice(i,1); saveBatch(); renderBatch(); });
-    c.querySelectorAll('.incBtn').forEach(btn=>btn.onclick=e=>{ const i=Number(e.target.dataset.i); batch[i].cantidad++; saveBatch(); renderBatch(); });
-    c.querySelectorAll('.decBtn').forEach(btn=>btn.onclick=e=>{ const i=Number(e.target.dataset.i); batch[i].cantidad=Math.max(1,batch[i].cantidad-1); saveBatch(); renderBatch(); });
-  }
-  function calcular(showTree=false){
-    const mp={}, inter={}; let treeLines=[];
-    for(const item of batch){ if(showTree) treeLines=treeLines.concat(expandirConArbol(item.producto, Number(item.cantidad||0), mp, inter, 0));
-                              else expandir(item.producto, Number(item.cantidad||0), mp, inter); }
-    renderMap('mpList', mp); renderMap('interList', inter);
-    if(showTree){ document.getElementById('treeView').textContent=treeLines.join('\n'); document.getElementById('treePanel').classList.remove('hidden'); }
-    return { mp, inter };
-  }
-  document.getElementById('addBtn').onclick = () => { const prod=document.getElementById('prodSelect').value; const qty=Number(document.getElementById('qtyInput').value||0); if(!prod||qty<=0) return; batch.push({ producto: prod, cantidad: qty }); saveBatch(); renderBatch(); };
-  document.getElementById('clearBtn').onclick = () => { batch.length=0; saveBatch(); renderBatch(); document.getElementById('treePanel').classList.add('hidden'); };
-  document.getElementById('calcBtn').onclick = () => { calcular(false); };
-  document.getElementById('toggleTreeBtn').onclick = () => { const panel=document.getElementById('treePanel'); const showing=!panel.classList.contains('hidden'); if(showing) panel.classList.add('hidden'); else calcular(true); };
-  document.getElementById('exportCsvBtn').onclick = () => {
-    const { mp, inter } = calcular(false);
-    const rows=[['Tipo','Item','Cantidad']];
-    for(const v of Object.values(mp)) rows.push(['Materia prima', v.label, v.qty.toFixed(4)]);
-    for(const v of Object.values(inter)) rows.push(['Intermedio', v.label, v.qty.toFixed(4)]);
-    const csv = rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(',')).join('\n');
-    const blob=new Blob([csv], {type:'text/csv;charset=utf-8;'});
-    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='materia_prima_calculo.csv'; a.click(); URL.revokeObjectURL(url);
-  };
-  const searchInput=document.getElementById('searchInput');
-  searchInput.addEventListener('input', e=>{ const term=e.target.value; const opts=term?filterOptions(term):renderAllOptions(); renderSelect(opts); });
-  searchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('addBtn').click(); });
+      `).join('');
+    }
 
-  // INIT: cargar recetas desde ./data/recipes.json (rutas relativas válidas en GitHub Pages de proyecto)
-  (async () => {
+    // ------------------ Lote y acciones ------------------
+    const batch = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    function saveBatch() { localStorage.setItem(STORAGE_KEY, JSON.stringify(batch)); }
+    function renderBatch() {
+      const c = document.getElementById('batchList');
+      if (batch.length === 0) { c.innerHTML = '<p class="text-neutral-400">Sin items.</p>'; return; }
+      c.innerHTML = batch.map((b, i) => `
+        <div class="flex items-center justify-between bg-neutral-900 rounded-xl p-2 border border-neutral-800">
+          <div>
+            <div class="font-medium">${b.producto}</div>
+            <div class="text-neutral-400">Cantidad: ${b.cantidad}</div>
+          </div>
+          <div class="flex gap-2 items-center">
+            <button data-i="${i}" class="decBtn px-2 rounded-lg bg-neutral-800 border border-neutral-700">-</button>
+            <button data-i="${i}" class="incBtn px-2 rounded-lg bg-neutral-800 border border-neutral-700">+</button>
+            <button data-i="${i}" class="rmBtn text-red-400 hover:text-red-300">Quitar</button>
+          </div>
+        </div>
+      `).join('');
+      c.querySelectorAll('.rmBtn').forEach(btn => btn.onclick = e => {
+        const i = Number(e.target.dataset.i); batch.splice(i, 1); saveBatch(); renderBatch();
+      });
+      c.querySelectorAll('.incBtn').forEach(btn => btn.onclick = e => {
+        const i = Number(e.target.dataset.i); batch[i].cantidad++; saveBatch(); renderBatch();
+      });
+      c.querySelectorAll('.decBtn').forEach(btn => btn.onclick = e => {
+        const i = Number(e.target.dataset.i); batch[i].cantidad = Math.max(1, batch[i].cantidad - 1); saveBatch(); renderBatch();
+      });
+    }
+
+    function calcular(showTree = false) {
+      const mp = {}, inter = {};
+      let treeLines = [];
+      for (const item of batch) {
+        if (showTree) {
+          treeLines = treeLines.concat(expandirConArbol(item.producto, Number(item.cantidad || 0), mp, inter, 0));
+        } else {
+          expandir(item.producto, Number(item.cantidad || 0), mp, inter);
+        }
+      }
+      renderMap('mpList', mp);
+      renderMap('interList', inter);
+      if (showTree) {
+        document.getElementById('treeView').textContent = treeLines.join('\n');
+        document.getElementById('treePanel').classList.remove('hidden');
+      }
+      return { mp, inter };
+    }
+
+    // ------------------ Eventos ------------------
+    document.getElementById('addBtn').onclick = () => {
+      const prod = document.getElementById('prodSelect').value;
+      const qty  = Number(document.getElementById('qtyInput').value || 0);
+      if (!prod || qty <= 0) return;
+      batch.push({ producto: prod, cantidad: qty });
+      saveBatch(); renderBatch();
+    };
+    document.getElementById('clearBtn').onclick = () => {
+      batch.length = 0; saveBatch(); renderBatch();
+      document.getElementById('treePanel').classList.add('hidden');
+    };
+    document.getElementById('calcBtn').onclick = () => { calcular(false); };
+    document.getElementById('toggleTreeBtn').onclick = () => {
+      const panel = document.getElementById('treePanel');
+      const showing = !panel.classList.contains('hidden');
+      if (showing) panel.classList.add('hidden'); else calcular(true);
+    };
+    document.getElementById('exportCsvBtn').onclick = () => {
+      const { mp, inter } = calcular(false);
+      const rows = [['Tipo','Item','Cantidad']];
+      for (const v of Object.values(mp))   rows.push(['Materia prima', v.label, v.qty.toFixed(4)]);
+      for (const v of Object.values(inter)) rows.push(['Intermedio',     v.label, v.qty.toFixed(4)]);
+      const csv = rows.map(r => r.map(x => `"${String(x).replaceAll('"','""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url  = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'materia_prima_calculo.csv'; a.click();
+      URL.revokeObjectURL(url);
+    };
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', e => {
+      const term = e.target.value;
+      const opts = term ? filterOptions(term) : renderAllOptions();
+      renderSelect(opts);
+    });
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('addBtn').click();
+    });
+
+    // ------------------ INIT: cargar recetas ------------------
+    (async () => {
       try {
-        // si index.html y recipes.json están en la MISMA carpeta (raíz del deploy)
         const url = new URL('./recipes.json', document.baseURI).toString();
-        const r = await fetch('./recipes.json', { cache: 'no-store' });
+        const r = await fetch(url, { cache: 'no-store' });
         if (!r.ok) throw new Error('HTTP ' + r.status);
-
         RECIPES = await r.json();
-        NAME_MAP = Object.keys(RECIPES).reduce((acc,k)=> (acc[k.trim().toLowerCase()] = k, acc), {});
+        NAME_MAP = Object.keys(RECIPES).reduce((acc, k) => (acc[norm(k)] = k, acc), {});
         renderSelect(Object.keys(RECIPES).sort());
         renderBatch();
       } catch (e) {
