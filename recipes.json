@@ -7,7 +7,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Arandanos cortados": {
     "yield_qty": 5.0,
@@ -17,7 +18,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Bastoncitos de cheddar": {
     "yield_qty": 4.0,
@@ -27,7 +29,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Bastoncitos de Muzzarella": {
     "yield_qty": 4.0,
@@ -37,7 +40,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Bastoncitos de provolone": {
     "yield_qty": 4.0,
@@ -47,7 +51,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Bolonia en rodajas": {
     "yield_qty": 10.0,
@@ -57,7 +62,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de carnicero"
+    "utensillo": "Cuchillo de carnicero",
+    "price": null
   },
   "Brocoli picado": {
     "yield_qty": 5.0,
@@ -67,7 +73,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Calabaza cortada": {
     "yield_qty": 5.0,
@@ -77,7 +84,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Cascara de papas": {
     "yield_qty": 2.0,
@@ -87,7 +95,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Chile jalapeño picado": {
     "yield_qty": 5.0,
@@ -97,7 +106,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Espinacas cortadas": {
     "yield_qty": 5.0,
@@ -107,7 +117,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fideos Espagueti": {
     "yield_qty": 5.0,
@@ -117,7 +128,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fideos Fettuccine": {
     "yield_qty": 5.0,
@@ -127,7 +139,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Fideos lasaña": {
     "yield_qty": 5.0,
@@ -137,7 +150,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Fideos Linguini": {
     "yield_qty": 5.0,
@@ -147,7 +161,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fideos macarrones": {
     "yield_qty": 5.0,
@@ -157,7 +172,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fideos tortellini": {
     "yield_qty": 5.0,
@@ -167,7 +183,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fresas cortadas": {
     "yield_qty": 5.0,
@@ -177,7 +194,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Hogaza de pan": {
     "yield_qty": 10.0,
@@ -187,7 +205,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Jamon cortado en cubos": {
     "yield_qty": 10.0,
@@ -197,7 +216,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Jamon Rebanado": {
     "yield_qty": 5.0,
@@ -207,7 +227,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Jugo de arandanos": {
     "yield_qty": 2.0,
@@ -217,7 +238,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de Fresas": {
     "yield_qty": 2.0,
@@ -227,7 +249,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de Lima": {
     "yield_qty": 2.0,
@@ -237,7 +260,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de limon": {
     "yield_qty": 2.0,
@@ -247,7 +271,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de manzana": {
     "yield_qty": 2.0,
@@ -257,7 +282,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de Naranja": {
     "yield_qty": 2.0,
@@ -267,7 +293,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de Piña": {
     "yield_qty": 2.0,
@@ -277,7 +304,8 @@
         "qty": 5.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Jugo de Uvas": {
     "yield_qty": 5.0,
@@ -287,7 +315,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Licuadora"
+    "utensillo": "Licuadora",
+    "price": null
   },
   "Kiwi cortado": {
     "yield_qty": 2.0,
@@ -297,7 +326,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Leche condensada": {
     "yield_qty": 2.0,
@@ -311,7 +341,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Batidores"
+    "utensillo": "Batidores",
+    "price": null
   },
   "Lechuga cortada": {
     "yield_qty": 5.0,
@@ -321,7 +352,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Lima cortada": {
     "yield_qty": 5.0,
@@ -331,7 +363,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Limon cortado": {
     "yield_qty": 5.0,
@@ -341,7 +374,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Lomo de terenera": {
     "yield_qty": 5.0,
@@ -351,7 +385,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de carnicero"
+    "utensillo": "Cuchillo de carnicero",
+    "price": null
   },
   "Manzanas cortadas": {
     "yield_qty": 5.0,
@@ -361,7 +396,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Masa": {
     "yield_qty": 5.0,
@@ -379,7 +415,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Batidores"
+    "utensillo": "Batidores",
+    "price": null
   },
   "Medallon de carne": {
     "yield_qty": 6.0,
@@ -389,7 +426,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Muzarella en cubos": {
     "yield_qty": 7.0,
@@ -399,7 +437,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Naranja cortada": {
     "yield_qty": 5.0,
@@ -409,7 +448,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Pan de hamburguesas": {
     "yield_qty": 10.0,
@@ -419,7 +459,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Pan de hot-dog": {
     "yield_qty": 10.0,
@@ -429,7 +470,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Pan de Sandwich": {
     "yield_qty": 10.0,
@@ -439,7 +481,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Pan Plano": {
     "yield_qty": 10.0,
@@ -449,7 +492,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Papas cortadas": {
     "yield_qty": 7.0,
@@ -459,7 +503,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Parmesano rallado": {
     "yield_qty": 7.0,
@@ -469,7 +514,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Rallador"
+    "utensillo": "Rallador",
+    "price": null
   },
   "Pedacitos de tocino": {
     "yield_qty": 7.0,
@@ -479,7 +525,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Pepinillos cortados": {
     "yield_qty": 5.0,
@@ -489,7 +536,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Pepinos picados": {
     "yield_qty": 5.0,
@@ -499,7 +547,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Pimiento rojo en rodajas": {
     "yield_qty": 3.0,
@@ -509,7 +558,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Pimiento rojo picado": {
     "yield_qty": 5.0,
@@ -519,7 +569,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Pimiento verde en rodajas": {
     "yield_qty": 3.0,
@@ -529,7 +580,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Pimiento verde picado": {
     "yield_qty": 5.0,
@@ -539,7 +591,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Piña cortada": {
     "yield_qty": 5.0,
@@ -549,7 +602,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Provolone en cubos": {
     "yield_qty": 7.0,
@@ -559,7 +613,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Queso cheddar en cubos": {
     "yield_qty": 7.0,
@@ -569,7 +624,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Solomillo De Res Crudo": {
     "yield_qty": 2.0,
@@ -579,7 +635,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Tiras de tocino": {
     "yield_qty": 7.0,
@@ -589,7 +646,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   },
   "Tomate cortado": {
     "yield_qty": 5.0,
@@ -599,7 +657,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Tomates en rodajas": {
     "yield_qty": 5.0,
@@ -609,7 +668,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de cocina"
+    "utensillo": "Cuchillo de cocina",
+    "price": null
   },
   "Zanahorias Picadas": {
     "yield_qty": 5.0,
@@ -619,7 +679,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Carne asada": {
     "yield_qty": 1.0,
@@ -629,7 +690,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Fideos ramen": {
     "yield_qty": 5.0,
@@ -639,7 +701,8 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Cocina"
+    "utensillo": "Cuchillo de Cocina",
+    "price": null
   },
   "Costillas": {
     "yield_qty": 5.0,
@@ -649,6 +712,7 @@
         "qty": 1.0
       }
     ],
-    "utensillo": "Cuchillo de Carnicero"
+    "utensillo": "Cuchillo de Carnicero",
+    "price": null
   }
 }
