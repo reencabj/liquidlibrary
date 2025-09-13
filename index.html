@@ -110,6 +110,7 @@
   function renderMap(divId,store){ const el=document.getElementById(divId); const entries=Object.values(store).sort((a,b)=>a.label.localeCompare(b.label));
     if(!entries.length){ el.innerHTML='<p class="text-neutral-400">—</p>'; return; }
     el.innerHTML = entries.map(e=>`<div class="flex justify-between py-1 border-b border-neutral-800"><span>${e.label}</span><span class="tabular-nums">${e.qty.toFixed(2)}</span></div>`).join('');
+  }
   
   const batch = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
   function saveBatch(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(batch)); }
