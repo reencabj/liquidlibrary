@@ -154,7 +154,7 @@
   // INIT: cargar recetas desde ./data/recipes.json (rutas relativas válidas en GitHub Pages de proyecto)
   (async () => {
     try {
-      const r = await fetch('./data/recipes.json', { cache: 'no-cache' });
+      const r = await fetch('/data/recipes.json', { cache: 'no-cache' });
       if (!r.ok) throw new Error('recipes.json no encontrado');
       RECIPES = await r.json();
       NAME_MAP = Object.keys(RECIPES).reduce((acc,k)=> (acc[norm(k)] = k, acc), {});
