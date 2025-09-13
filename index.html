@@ -173,7 +173,12 @@
     const mp={}, inter={}; let treeLines=[];
     for(const item of batch){ if(showTree) treeLines=treeLines.concat(expandirConArbol(item.producto, Number(item.cantidad||0), mp, inter, 0));
                               else expandir(item.producto, Number(item.cantidad||0), mp, inter); }
-    renderMap('mpList', mp); renderMap('interList', inter);
+    // Materia prima con costos
+    renderMap('mpList', mp, true);
+    
+    // Intermedios sin costos (o true si querés también)
+    renderMap('interList', inter, false);
+
     if(showTree){ document.getElementById('treeView').textContent=treeLines.join('\n'); document.getElementById('treePanel').classList.remove('hidden'); }
     return { mp, inter };
   }
