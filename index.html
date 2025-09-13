@@ -107,10 +107,43 @@
   function renderSelect(options){ document.getElementById('prodSelect').innerHTML = options.map(n=>`<option value="${n}">${n}</option>`).join(''); }
   function renderAllOptions(){ return Object.keys(RECIPES).sort(); }
   function filterOptions(term){ const t=norm(term); return renderAllOptions().filter(n=>norm(n).includes(t)); }
-  function renderMap(divId,store){ const el=document.getElementById(divId); const entries=Object.values(store).sort((a,b)=>a.label.localeCompare(b.label));
-    if(!entries.length){ el.innerHTML='<p class="text-neutral-400">—</p>'; return; }
-    el.innerHTML = entries.map(e=>`<div class="flex justify-between py-1 border-b border-neutral-800"><span>${e.label}</span><span class="tabular-nums">${e.qty.toFixed(2)}</span></div>`).join('');
+  function renderMap(divId, store) {
+    const el = document.getElementById(divId);
+    const entries = Object.values(store).sort((a, b) => a.label.localeCompare(b.label));
+  
+    if (!entries.length) {
+      el.innerHTML = '<p class="text-neutral-400">—</p>';
+      return;
+    }
+  
+    let total = 0;
+    el.innerHTML = entries.map(e => {
+      const rec = RECIPES[e.label] || {};
+      const price = Number(rec.price || 0);
+      const cost = price * e.qty;
+      total += cost;
+  
+      return `
+        <div class="flex justify-between py-1 border-b border-neutral-800">
+          <span>${e.label}</span>
+          <span class="tabular-nums">
+            ${e.qty.toFixed(2)}${price ? ` • $${cost.toFixed(2)}` : ""}
+          </span>
+        </div>
+      `;
+    }).join('');
+  
+    // mostrar total al final si hay precios
+    if (total > 0) {
+      el.innerHTML += `
+        <div class="flex justify-between py-2 mt-2 border-t border-neutral-700 font-semibold text-yy-accent">
+          <span>Total</span>
+          <span>$${total.toFixed(2)}</span>
+        </div>
+      `;
+    }
   }
+
   const batch = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
   function saveBatch(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(batch)); }
   function renderBatch(){
