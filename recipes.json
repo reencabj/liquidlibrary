@@ -79,16 +79,6 @@
     ],
     "utensillo": "Cuchillo de Cocina"
   },
-  "Carne asada": {
-    "yield_qty": 1.0,
-    "ingredients": [
-      {
-        "name": "Lomo de ternera",
-        "qty": 1.0
-      }
-    ],
-    "utensillo": "Cuchillo de Cocina"
-  },
   "Cascara de papas": {
     "yield_qty": 2.0,
     "ingredients": [
@@ -108,16 +98,6 @@
       }
     ],
     "utensillo": "Cuchillo de Cocina"
-  },
-  "Costillas": {
-    "yield_qty": 5.0,
-    "ingredients": [
-      {
-        "name": "Losa de carne",
-        "qty": 1.0
-      }
-    ],
-    "utensillo": "Cuchillo de Carnicero"
   },
   "Espinacas cortadas": {
     "yield_qty": 5.0,
@@ -170,16 +150,6 @@
     "utensillo": "Cuchillo de Cocina"
   },
   "Fideos macarrones": {
-    "yield_qty": 5.0,
-    "ingredients": [
-      {
-        "name": "Masa",
-        "qty": 1.0
-      }
-    ],
-    "utensillo": "Cuchillo de Cocina"
-  },
-  "Fideos ramen": {
     "yield_qty": 5.0,
     "ingredients": [
       {
@@ -406,7 +376,7 @@
       },
       {
         "name": "Sal",
-        "qty": NaN
+        "qty": 1.0
       }
     ],
     "utensillo": "Batidores"
@@ -650,5 +620,35 @@
       }
     ],
     "utensillo": "Cuchillo de Cocina"
+  },
+  "Carne asada": {
+    "yield_qty": 1.0,
+    "ingredients": [
+      {
+        "name": "Lomo de ternera",
+        "qty": 1.0
+      }
+    ],
+    "utensillo": "Cuchillo de Cocina"
+  },
+  "Fideos ramen": {
+    "yield_qty": 5.0,
+    "ingredients": [
+      {
+        "name": "Masa",
+        "qty": 1.0
+      }
+    ],
+    "utensillo": "Cuchillo de Cocina"
+  },
+  "Costillas": {
+    "yield_qty": 5.0,
+    "ingredients": [
+      {
+        "name": "Losa de carne",
+        "qty": 1.0
+      }
+    ],
+    "utensillo": "Cuchillo de Carnicero"
   }
 }
